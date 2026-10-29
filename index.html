@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClipKaro – Free Auto Subtitle Reel Clipper | Split Long Videos into Captioned Reels</title>
+<meta name="description" content="Free online reel clipper: drop in one or many long videos and ClipKaro splits them into short clips with word-by-word auto subtitles. Hindi, English and 90+ languages. Fast, GPU-accelerated, runs in your browser, no upload.">
+<meta name="keywords" content="reel clipper, auto subtitles, video to reels, add captions to video free, split video into clips, auto caption generator, hindi subtitles, shorts maker, batch video clipper">
+<link rel="canonical" href="https://adityachaturvedi2906.github.io/clipkaro/">
+<meta property="og:title" content="ClipKaro – Turn long videos into captioned reels, fast">
+<meta property="og:description" content="Batch-split videos into short clips with word-by-word subtitles. Free, private, in your browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23ff3d6e%22/%3E%3Cpath d=%22M38 28l36 22-36 22z%22 fill=%22white%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@800&family=Poppins:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/mediabunny@1.60.0/+esm">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"ClipKaro – Auto Subtitle Reel Clipper","url":"https://adityachaturvedi2906.github.io/clipkaro/","applicationCategory":"MultimediaApplication","operatingSystem":"Any (Chrome or Edge recommended)","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Split long videos into short captioned reels automatically, in your browser. Supports batches of videos."},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is ClipKaro free?","acceptedAnswer":{"@type":"Answer","text":"Yes. ClipKaro is free and runs entirely in your browser."}},
+{"@type":"Question","name":"Can I clip many videos at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drop in as many videos as you like. ClipKaro writes subtitles for the next video while it exports the current one, and can save every clip straight into a folder."}},
+{"@type":"Question","name":"Is my video uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Transcription and clipping happen on your device. Your video never leaves your computer."}}]}]}
+</script>
+<style>
+:root{--bg:#0c0c12;--card:#15151e;--ink:#f1f1f6;--muted:#a3a3b5;--line:#2a2a38;--brand:#ff3d6e;--brand2:#ff8a3d;--good:#22c55e;--bad:#f43f5e;--soft:#1e1b2b}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f7f6fb;--card:#fff;--ink:#16161d;--muted:#5f5f70;--line:#e5e4ee;--soft:#fff1f4}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Poppins,system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:10px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:22px}.logo span{color:var(--brand)}
+.muted{color:var(--muted)}.small{font-size:13px}
+.hero{text-align:center;padding:18px 0 6px}
+.hero h1{font-size:clamp(28px,5.5vw,46px);line-height:1.12;margin:0 0 10px;font-weight:900}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:640px;margin:0 auto}
+.pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.pills span{border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0}
+.drop{border:2px dashed var(--brand);border-radius:16px;background:var(--soft);padding:34px 16px;text-align:center;cursor:pointer;transition:.15s}
+.drop:hover,.drop.over{transform:scale(1.01);border-style:solid}
+.drop .ic{font-size:44px}.drop b{display:block;font-size:20px;margin:6px 0 2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 22px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.opt{margin-bottom:12px}.opt>label{font-weight:700;font-size:14px;display:block;margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:7px 12px;border-radius:10px;font:600 14px Poppins,sans-serif;cursor:pointer}
+.seg button.on{border-color:var(--brand);background:var(--brand);color:#fff}
+select{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:600 14px Poppins,sans-serif}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:14px;cursor:pointer}.chk input{margin-top:4px;accent-color:var(--brand)}
+.btn{display:inline-block;border:0;border-radius:12px;padding:13px 24px;font:700 16px Poppins,sans-serif;cursor:pointer;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:10px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.full{width:100%}.center{text-align:center}.hidden{display:none!important}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .3s}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.qi{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px;background:var(--bg)}
+.qi.done{border-color:#22c55e66}.qi.error{border-color:#f43f5e88}.qi.error .status{color:var(--bad)}
+.qh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.qn{display:flex;flex-direction:column;min-width:0}.qn b{word-break:break-all;font-size:15px}
+.qa{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.x{background:none;border:0;color:var(--muted);font-size:16px;cursor:pointer;padding:4px 8px}
+.clipsWrap{margin-top:8px}.clipsWrap summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--brand)}
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:10px}
+.clip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.clip h4{margin:0;display:flex;justify-content:space-between;font-size:14px}
+.clip video,.thumb{width:100%;border-radius:10px;background:#000;display:block;max-height:380px;object-fit:contain}
+.caps{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:4px}
+.caps input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:5px 8px;font:13px Poppins,"Noto Sans Devanagari",sans-serif}
+.caps .t{font-size:11px;color:var(--muted)}
+.ctitle{font-weight:700;font-size:14px;line-height:1.3}
+.aibox{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:12px}
+.aibox a{color:var(--brand);font-weight:700}
+#gkey,#vurl{flex:1;min-width:180px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:14px Poppins,sans-serif}
+.status{font-size:13px;color:var(--muted)}.status a{color:var(--brand);font-weight:700}
+.ok{color:var(--good);font-weight:700}.warnTxt{color:var(--brand2)}
+.warn{background:#ff8a3d22;border:1px solid #ff8a3d66;border-radius:12px;padding:10px 14px;font-size:14px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:640px){.how{grid-template-columns:1fr}}
+.how div{background:var(--bg);border-radius:14px;padding:14px}.how b{display:block;font-size:22px;color:var(--brand)}
+.faq details{border-bottom:1px solid var(--line);padding:10px 0}.faq summary{font-weight:700;cursor:pointer}
+.tabs{display:flex;gap:6px;justify-content:center;margin:6px 0 4px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 18px;border-radius:12px;font:700 15px Poppins,sans-serif;cursor:pointer}
+.tabs button.on{background:linear-gradient(90deg,var(--brand),var(--brand2));border-color:transparent;color:#fff}
+body[data-mode="trim"] [data-mode="auto"],body[data-mode="auto"] [data-mode="trim"]{display:none!important}
+.tgrid{display:grid;grid-template-columns:1fr 200px;gap:16px;align-items:start}@media(max-width:640px){.tgrid{grid-template-columns:1fr}}
+#tVideo{width:100%;max-height:420px;background:#000;border-radius:12px;display:block}
+#tPrev{width:100%;max-width:200px;aspect-ratio:9/16;border-radius:12px;background:#000;display:block;margin:0 auto}
+.tset{display:grid;grid-template-columns:1fr 1fr;gap:4px 22px;margin-top:14px}@media(max-width:760px){.tset{grid-template-columns:1fr}}
+.tset input[type=range]{width:100%;accent-color:var(--brand)}
+.dim{opacity:.4;pointer-events:none}
+.rg{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:12px;background:var(--bg)}
+.rgh{display:flex;gap:10px;align-items:center}.rgh .x{margin-left:auto}
+.rrow{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-top:8px}
+.tf{display:flex;flex-direction:column;font-size:12px;font-weight:700;gap:3px}.tf.wide{margin-top:8px}
+.tf input,#tKeys,#tHookDur{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:7px 9px;font:14px Poppins,"Segoe UI Emoji",sans-serif}
+.rrow .tf input{width:110px}.tf.wide input{width:100%}
+.rg .caps{max-height:240px;margin-top:8px}
+.capl{display:grid;grid-template-columns:52px 1fr;gap:2px 6px;align-items:center}.capl .hl{grid-column:2;font-size:11px;color:var(--muted)}.capl .hl b{color:#c9a400}
+.rout video{width:100%;max-width:260px;aspect-ratio:9/16;background:#000;border-radius:10px;display:block;margin:10px 0 6px}
+body.tbusy #tRanges .exp,body.tbusy #tRanges .cap,body.tbusy #tExportAll,body.tbusy #tCapAll{opacity:.5;pointer-events:none}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0}
+</style>
+</head>
+<body data-mode="auto">
+<div class="wrap">
+<header><div class="logo">Clip<span>Karo</span></div><div class="small muted" id="envInfo"></div></header>
+
+<section class="hero">
+  <h1>Turn long videos into<br><em>captioned reels, in bulk</em></h1>
+  <p class="muted">Drop in one video or twenty. ClipKaro writes word-by-word subtitles, cuts each video into clips that start and end with a complete thought, and exports smooth MP4s faster than real time.</p>
+  <div class="pills"><span>⚡ GPU-accelerated</span><span>📚 Batch queue</span><span>🎯 Word-synced captions</span><span>🧠 Cuts at complete thoughts</span><span>🔒 Never uploaded</span></div>
+</section>
+
+<div class="tabs"><button data-tab="auto" class="on">📚 Auto clips</button><button data-tab="trim">✂️ Custom Trim</button></div>
+
+<div class="warn hidden" id="noSupport">Your browser can't do fast video encoding. Please open ClipKaro in <b>Chrome or Edge</b> (version 94 or newer) on a laptop or desktop.</div>
+
+<section class="card" data-mode="auto">
+  <div class="drop" id="drop" tabindex="0">
+    <div class="ic">🎬</div><b>Add videos</b>
+    <div class="small muted">MP4, MOV, WebM, MKV · select or drop several at once</div>
+    <input type="file" id="file" accept="video/*,.mkv" multiple hidden>
+  </div>
+  <div class="row" style="margin-top:12px"><input id="vurl" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="…or paste a video link (Dropbox or direct .mp4)"><button class="btn sm" id="vurlGo">Add link</button></div>
+  <div class="small muted" id="vurlMsg" style="margin-top:6px">The link must open the video file itself (not a YouTube/Instagram page). Dropbox share links work best.</div>
+</section>
+
+<section class="card" data-mode="auto">
+  <h3 style="margin:0 0 12px">Settings <span class="small muted">(apply to every video in the queue)</span></h3>
+  <div class="grid">
+    <div>
+      <div class="opt"><label>How to clip</label><div class="seg" data-k="mode"><button data-v="full">Full video, in complete sections</button><button data-v="best">Best moments only</button></div>
+        <div class="small muted" style="margin-top:4px">Every clip starts where a point starts and ends only when that point is finished — never mid-sentence.</div>
+        <div class="row hidden" id="countWrap" style="margin-top:8px"><label for="count" class="small"><b>How many clips</b></label><select id="count"><option value="auto">Auto (~1 per 2.5 min)</option><option value="3">3</option><option value="5">5</option><option value="8">8</option><option value="10">10</option><option value="15">15</option><option value="20">20</option></select></div></div>
+      <div class="opt"><label>Clip length</label><div class="seg" data-k="len"><button data-v="15-30">15–30s</button><button data-v="30-60">30–60s</button><button data-v="45-90">45–90s</button><button data-v="60-120">1–2 min</button><button data-v="90-180">1.5–3 min</button></div>
+        <div class="small muted" style="margin-top:4px">A range, so each clip can end where its thought ends.</div></div>
+      <div class="opt"><label>Format</label><div class="seg" data-k="fmt"><button data-v="fit">9:16 Reel (fit)</button><button data-v="crop">9:16 (crop)</button><button data-v="orig">Original</button></div></div>
+      <div class="opt"><label>Caption style</label><div class="seg" data-k="style"><button data-v="highlight">Highlight word</button><button data-v="classic">Bold white</button><button data-v="box">Boxed</button><button data-v="none">No captions</button></div></div>
+      <div class="opt"><label>Caption position</label><div class="seg" data-k="pos"><button data-v="low">Lower</button><button data-v="mid">Middle</button><button data-v="bottom">Bottom</button></div></div>
+    </div>
+    <div>
+      <div class="opt"><label>Where clips go</label>
+        <div class="row" id="pickDirWrap"><button class="btn ghost sm" id="pickDir">📁 Choose output folder</button><span class="small" id="dirName">Recommended for batches: each video gets its own subfolder.</span></div>
+        <label class="chk" style="margin-top:8px"><input type="checkbox" id="autoDl"> Also download each clip as soon as it's ready</label>
+        <label class="chk" style="margin-top:6px"><input type="checkbox" id="review"> Let me check subtitles before exporting each video</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card" data-mode="trim" id="trimSetup">
+  <h3 style="margin:0 0 4px">Custom Trim <span class="small muted">— pick exact moments from one long video</span></h3>
+  <p class="small muted" style="margin:0 0 12px">Type the start and end of each moment you want. Each one becomes a 1080×1920 Short with captions and an optional hook. Only those parts are processed, so even a 2-hour, 1 GB file works.</p>
+  <div class="drop" id="tDrop" tabindex="0">
+    <div class="ic">🎞️</div><b>Upload one long video</b>
+    <div class="small muted">MP4 recommended · stays on your device · 2+ hours is fine</div>
+    <input type="file" id="tFile" accept="video/*,.mkv" hidden>
+  </div>
+  <div id="tWork" class="hidden">
+    <div class="tgrid">
+      <div><video id="tVideo" controls playsinline preload="auto"></video>
+        <div class="row" style="justify-content:space-between;margin-top:6px"><span class="small muted" id="tMeta"></span><span class="small">Now: <b id="tNow">0:00</b></span></div>
+        <button class="btn ghost sm" id="tChange" style="margin-top:6px">Choose another video</button></div>
+      <div><canvas id="tPrev" width="270" height="480"></canvas><div class="small muted center" style="margin-top:4px">Live 9:16 preview</div></div>
+    </div>
+    <div class="tset">
+      <div>
+        <div class="opt"><label>Framing</label><div class="seg tseg" data-k="fit"><button data-v="crop">Center crop</button><button data-v="blur">Fit + blurred background</button></div></div>
+        <div class="opt" id="tNudgeWrap"><label for="tNudge">Move crop left / right <span class="small muted" id="tNudgeVal"></span></label><input type="range" id="tNudge" min="-100" max="100" step="1"><div class="small muted">Keep the speaker's face in frame. Watch the preview.</div></div>
+        <div class="opt"><label for="tPos">Caption position <span class="small muted" id="tPosVal"></span></label><input type="range" id="tPos" min="35" max="92" step="1"><div class="small muted">Default is lower-middle, so text stays off faces.</div></div>
+      </div>
+      <div>
+        <div class="opt"><label for="tKeys">Highlight these words</label><input id="tKeys" placeholder="Bloom, Target" style="width:100%"><div class="small muted">Comma-separated. Shown in yellow.</div>
+          <label class="chk" style="margin-top:6px"><input type="checkbox" id="tAutoHi"> Also highlight all numbers and $ amounts automatically</label></div>
+        <div class="opt"><label for="tHookDur">Hook shows for (seconds)</label><input type="number" id="tHookDur" min="1" max="15" step="0.5" style="width:90px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card" id="engineCard">
+  <h3 style="margin:0 0 12px">Subtitle engine <span class="small muted">(used by both modes)</span></h3>
+  <div class="grid"><div>
+      <div class="opt aibox"><label for="gkey">⚡ Pro AI (free) — much better subtitles + smarter cuts</label>
+        <div class="row"><input id="gkey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your free Groq API key (gsk_…)"><button class="btn sm" id="gsave">Save</button><button class="btn ghost sm" id="gclear">Clear</button></div>
+        <div class="small" id="gstat" style="margin-top:4px">No key: subtitles and cuts are done on your device.</div>
+        <div class="small muted" style="margin-top:4px">Get a free key in 1 minute at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>. It's stored only in this browser. With a key, audio is sent to Groq for transcription (Whisper Large-v3) and an AI reads the transcript to decide where each clip should start and end, and gives every clip a title.</div>
+        <label class="chk hidden" id="aiOn" style="margin-top:8px"><input type="checkbox" id="aifix"> AI spell-fix subtitles (fixes misheard words like “pashion” → “passion”)</label>
+      </div>
+  </div><div>
+      <div class="opt" id="offlineModel"><label>On-device subtitle accuracy</label><div class="seg" data-k="model"><button data-v="onnx-community/whisper-base_timestamped">Fast</button><button data-v="onnx-community/whisper-small_timestamped">Accurate (slow)</button><button data-v="onnx-community/whisper-large-v3-turbo_timestamped">Max (gaming GPU)</button></div>
+        <div class="small muted" style="margin-top:4px">Downloads once and is cached. On normal laptops only “Fast” keeps up; for accurate Hindi/Hinglish subtitles use the free Pro AI key above.</div></div>
+      <div class="opt"><label for="lang">Spoken language</label>
+        <select id="lang"><option value="auto">Detect automatically</option><option value="en">English</option><option value="hi">Hindi (हिंदी script)</option><option value="hinglish">Hinglish (Roman letters)</option><option value="mr">Marathi</option><option value="ta">Tamil</option><option value="te">Telugu</option><option value="bn">Bengali</option><option value="gu">Gujarati</option><option value="pa">Punjabi</option><option value="ur">Urdu</option><option value="es">Spanish</option><option value="ar">Arabic</option></select>
+        <div class="small muted" style="margin-top:4px">Picking the language is faster and more accurate than auto-detect.</div>
+        <div class="small warnTxt hidden" id="hinglishNote" style="margin-top:4px">Roman-letter Hinglish needs the free Pro AI key. Without it you'll get Hindi script.</div></div>
+  </div></div>
+</section>
+
+<section class="card hidden" id="queueCard" data-mode="auto">
+  <div class="row" style="justify-content:space-between">
+    <div><h3 style="margin:0">Queue</h3><div class="small muted" id="qSum"></div></div>
+    <div class="row"><button class="btn ghost" id="stop">■ Stop</button><button class="btn" id="start">✂️ Start clipping</button></div>
+  </div>
+  <div class="status" id="globalStat" style="margin-top:6px"></div>
+  <div id="queue"></div>
+  <p class="small muted" style="margin:12px 0 0">Tip: while one video exports, ClipKaro is already writing subtitles for the next. You can switch tabs — it keeps working — but don't close this tab.</p>
+</section>
+
+<section class="card hidden" id="trimClips" data-mode="trim">
+  <div class="row" style="justify-content:space-between">
+    <h3 style="margin:0">Your clips</h3>
+    <div class="row"><button class="btn ghost sm" id="tCapAll">📝 Write captions for all</button><button class="btn sm" id="tExportAll">⬇ Export all</button></div>
+  </div>
+  <div id="tRanges"></div>
+  <button class="btn ghost sm" id="tAdd" style="margin-top:12px">＋ Add another range</button>
+  <p class="small muted" style="margin:10px 0 0">Times are HH:MM:SS or MM:SS (e.g. 33:07 → 34:14). Only each range (plus 1.5s either side) is transcribed. Fix names and numbers in the caption boxes before exporting.</p>
+</section>
+
+<section class="card">
+  <h2 style="margin-top:0">How the auto subtitle reel clipper works</h2>
+  <div class="how">
+    <div><b>1</b>Add one or many podcasts, lectures, vlogs or interviews. They stay on your device.</div>
+    <div><b>2</b>AI writes subtitles with exact word timings (on your GPU) and cuts each video into short clips at natural pauses.</div>
+    <div><b>3</b>Clips are encoded with your computer's video chip, faster than real time, and saved to your folder.</div>
+  </div>
+</section>
+<section class="card faq">
+  <h2 style="margin-top:0">FAQ</h2>
+  <details><summary>Is ClipKaro free?</summary><p>Yes. It runs entirely in your browser, so there are no server costs.</p></details>
+  <details><summary>How fast is it?</summary><p>Exporting uses your computer's hardware video encoder, typically 2–3× faster than the video's length on a normal laptop (more on a strong GPU). Subtitles run on your graphics chip in Chrome/Edge; without one they fall back to the CPU, which is slower.</p></details>
+  <details><summary>Can I clip many videos at once?</summary><p>Yes. Add as many as you want and press Start. Pick an output folder and every video's clips land in their own subfolder, with an .srt file.</p></details>
+  <details><summary>Which languages work?</summary><p>Hindi, English and 90+ others. Choose the language for best results, and use “Best” accuracy for Hindi. You can fix any caption and re-export just the clips you changed.</p></details>
+  <details><summary>Is my video uploaded?</summary><p>No. Transcription and video rendering happen on your device.</p></details>
+  <details><summary>How does Custom Trim work?</summary><p>Switch to the Custom Trim tab, upload one long video, and type the start and end of each moment (like 33:07 to 34:14). ClipKaro transcribes only those moments, lets you fix the captions, adds your hook text at the top, and exports each one as a 1080×1920 MP4 named like clip_33-07_34-14.mp4.</p></details>
+  <details><summary>What format are the clips?</summary><p>MP4 (H.264 + AAC), 1080×1920 for reels. Uploads straight to Instagram Reels, YouTube Shorts and Facebook.</p></details>
+</section>
+<footer>© <span id="yr"></span> ClipKaro · Free Auto Subtitle Reel Clipper · Made in India</footer>
+</div>
+<script type="module" src="./app.js?v=9"></script>
+</body>
+</html>

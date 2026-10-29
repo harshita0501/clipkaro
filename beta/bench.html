@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8"><title>ClipKaro bench</title>
+<body style="font:14px monospace;background:#111;color:#eee;padding:16px">
+<input type="file" id="f" accept="video/*"> <button id="go">Run</button><pre id="log"></pre>
+<script type="module">
+import { Input, Output, Conversion, ALL_FORMATS, BlobSource, BufferTarget, Mp4OutputFormat, VideoSampleSink, QUALITY_HIGH, QUALITY_MEDIUM } from 'https://cdn.jsdelivr.net/npm/mediabunny@1.60.0/+esm';
+const log = (s) => { document.getElementById('log').textContent += s + '\n'; };
+const T = 20;
+async function conv(file, video, label, audio = { codec: 'aac', quality: QUALITY_HIGH }, start = 10, quiet = false) {
+  const input = new Input({ source: new BlobSource(file), formats: ALL_FORMATS });
+  const output = new Output({ format: new Mp4OutputFormat({ fastStart: 'in-memory' }), target: new BufferTarget() });
+  const c = await Conversion.init({ input, output, trim: { start, end: start + T }, video, audio });
+  const t0 = performance.now(); let frames = 0;
+  await c.execute();
+  const s = (performance.now() - t0) / 1000;
+  if (!quiet) log(`${label}: ${s.toFixed(2)}s  → ${(T / s).toFixed(1)}x realtime, ${(output.target.buffer.byteLength / 1e6).toFixed(1)} MB`);
+}
+function proc(W, H, mode) {
+  const cv = new OffscreenCanvas(W, H), ctx = cv.getContext('2d', { alpha: false });
+  const bg = new OffscreenCanvas(27, 48), bx = bg.getContext('2d');
+  return (sample) => {
+    const vw = sample.displayWidth, vh = sample.displayHeight;
+    if (mode >= 1) { const kb = Math.max(27 / vw, 48 / vh); sample.draw(bx, (27 - vw * kb) / 2, (48 - vh * kb) / 2, vw * kb, vh * kb); ctx.drawImage(bg, 0, 0, W, H); }
+    const k = Math.min(W / vw, H / vh); sample.draw(ctx, (W - vw * k) / 2, (H - vh * k) / 2, vw * k, vh * k);
+    if (mode >= 2) { ctx.font = '900 92px Poppins, Arial'; ctx.lineWidth = 18; ctx.strokeStyle = '#000'; ctx.fillStyle = '#fff'; ctx.textAlign='center'; ctx.strokeText('HELLO THERE WORLD', W / 2, H * 0.72); ctx.fillText('HELLO THERE WORLD', W / 2, H * 0.72); }
+    return cv;
+  };
+}
+document.getElementById('go').onclick = async () => {
+  const file = document.getElementById('f').files[0];
+  const input = new Input({ source: new BlobSource(file), formats: ALL_FORMATS });
+  const vt = await input.getPrimaryVideoTrack();
+  log(`codec ${await vt.getCodec()} ${await vt.getDisplayWidth()}x${await vt.getDisplayHeight()}`);
+  let t0 = performance.now(), n = 0;
+  for await (const s of new VideoSampleSink(vt).samples(10, 10 + T)) { n++; s.close(); }
+  log(`decode only: ${((performance.now() - t0) / 1000).toFixed(2)}s for ${n} frames → ${(T / ((performance.now() - t0) / 1000)).toFixed(1)}x`);
+  const base = { codec: 'avc', frameRate: 30 };
+  const P = (W, H) => ({ ...base, quality: QUALITY_HIGH, processedWidth: W, processedHeight: H, forceTranscode: true, process: proc(W, H, 2) });
+  log('visible: ' + document.visibilityState + ' focus: ' + document.hasFocus());
+  await conv(file, P(1080, 1920), 'A full (video+aac)');
+  await conv(file, P(1080, 1920), 'B video only', { discard: true });
+  await conv(file, { discard: true }, 'C audio only (aac)');
+  await conv(file, P(1080, 1920), 'D video, audio copy', { forceTranscode: false });
+  let t0b = performance.now();
+  await Promise.all([0, 1, 2].map((k) => conv(file, P(1080, 1920), 'par', undefined, 2 + k * T / 1.5, true)));
+  let sp = (performance.now() - t0b) / 1000; log(`E 3 in parallel: ${sp.toFixed(2)}s for ${3 * T}s → ${(3 * T / sp).toFixed(1)}x`);
+  t0b = performance.now();
+  await Promise.all([0, 1].map((k) => conv(file, P(1080, 1920), 'par', undefined, 2 + k * T / 1.5, true)));
+  sp = (performance.now() - t0b) / 1000; log(`F 2 in parallel: ${sp.toFixed(2)}s for ${2 * T}s → ${(2 * T / sp).toFixed(1)}x`);
+  await conv(file, P(1080, 1920), 'G full again');
+  log('done');
+};
+</script>
